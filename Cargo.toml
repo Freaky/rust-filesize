@@ -6,7 +6,7 @@ authors = ["Thomas Hurst <tom@hur.st>"]
 edition = "2018"
 license = "MIT"
 repository = "https://github.com/Freaky/rust-filesize"
-keywords = ["file", "compressed", "sparse", "disk", "usage", "space"]
+keywords = ["file", "compressed", "sparse", "disk", "usage"]
 categories = ["os"]
 readme = "README.md"
 
