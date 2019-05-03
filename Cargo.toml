@@ -1,0 +1,10 @@
+[package]
+name = "filesize"
+version = "0.1.0"
+authors = ["Thomas Hurst <tom@hur.st>"]
+edition = "2018"
+
+[dependencies]
+
+[target."cfg(windows)".dependencies]
+winapi = { version = "0.3.7", features = ["fileapi", "winerror"] }
