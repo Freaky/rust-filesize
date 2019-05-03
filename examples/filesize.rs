@@ -2,15 +2,19 @@ use filesize;
 use std::io;
 
 fn main() -> io::Result<()> {
-    for arg in std::env::args_os() {
-        let size = std::fs::symlink_metadata(&arg)?.len();
-        let realsize = filesize::get_compressed_file_size(&arg)?;
+    println!("{:>9} {:>9} {:>9} {}", "Logical", "Physical", "Ratio", "Path");
+
+    for path in std::env::args_os().skip(1) {
+        let meta = std::fs::symlink_metadata(&path)?;
+        let logical = meta.len();
+        let physical = filesize::file_real_size_fast(&path, &meta)?;
 
         println!(
-            "{}, {} bytes logical, {} bytes on-disk",
-            arg.to_string_lossy(),
-            size,
-            realsize
+            "{:>9} {:>9} {:>9.2}x {}",
+            logical,
+            physical,
+            physical as f64 / logical as f64,
+            path.to_string_lossy()
         );
     }
 
