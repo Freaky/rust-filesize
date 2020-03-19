@@ -64,7 +64,7 @@ mod imp {
     use std::path::Path;
 
     pub fn file_real_size<P: AsRef<Path>>(path: P) -> std::io::Result<u64> {
-        std::fs::symlink_metadata(path)?.len()
+        Ok(std::fs::symlink_metadata(path)?.len())
     }
 
     pub fn file_real_size_fast<P: AsRef<Path>>(_path: P, metadata: &Metadata) -> std::io::Result<u64> {
