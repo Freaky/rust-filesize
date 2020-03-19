@@ -61,12 +61,12 @@ use std::path::Path;
 
 #[cfg(unix)]
 mod imp {
-    use std::fs::Metadata;
+    use super::*;
+
     use std::os::unix::fs::MetadataExt;
-    use std::path::Path;
 
     pub fn file_real_size<P: AsRef<Path>>(path: P) -> std::io::Result<u64> {
-        Ok(std::fs::symlink_metadata(path)?.blocks() * 512)
+        Ok(path.as_ref().symlink_metadata()?.blocks() * 512)
     }
 
     pub fn file_real_size_fast<P: AsRef<Path>>(
@@ -79,9 +79,9 @@ mod imp {
 
 #[cfg(windows)]
 mod imp {
-    use std::fs::Metadata;
+    use super::*;
+
     use std::os::windows::ffi::OsStrExt;
-    use std::path::Path;
 
     use winapi::shared::winerror::NO_ERROR;
     use winapi::um::fileapi::{GetCompressedFileSizeW, INVALID_FILE_SIZE};
@@ -115,11 +115,10 @@ mod imp {
 
 #[cfg(not(any(windows, unix)))]
 mod imp {
-    use std::fs::Metadata;
-    use std::path::Path;
+    use super::*;
 
     pub fn file_real_size<P: AsRef<Path>>(path: P) -> std::io::Result<u64> {
-        Ok(std::fs::symlink_metadata(path)?.len())
+        Ok(path.as_ref().symlink_metadata()?.len())
     }
 
     pub fn file_real_size_fast<P: AsRef<Path>>(
