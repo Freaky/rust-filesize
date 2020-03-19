@@ -1,6 +1,7 @@
 [![Cargo](https://img.shields.io/crates/v/filesize.svg)][crate]
 [![Documentation](https://docs.rs/filesize/badge.svg)][docs]
 [![Build Status](https://travis-ci.org/Freaky/rust-filesize.svg?branch=master)](https://travis-ci.org/Freaky/rust-filesize)
+[![CI](https://github.com/Freaky/rust-filesize/workflows/build/badge.svg)][ci]
 
 # filesize
 
