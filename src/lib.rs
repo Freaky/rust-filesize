@@ -19,19 +19,15 @@
 //!
 //! # fn main() -> std::io::Result<()> {
 //! let path = Path::new("Cargo.toml");
+//! let metadata = path.symlink_metadata()?;
 //!
 //! let realsize = path.size_on_disk()?;
-//!
-//! // Save a stat() on Unix
-//! let metadata = path.symlink_metadata()?;
 //! let realsize = path.size_on_disk_fast(&metadata)?;
 //!
-//! // Legacy interface
+//! // Older interface
 //! use filesize::{file_real_size, file_real_size_fast};
 //!
 //! let realsize = file_real_size(path)?;
-//!
-//! // Save a stat() on Unix
 //! let realsize = file_real_size_fast(path, &metadata)?;
 //! # Ok(())
 //! # }

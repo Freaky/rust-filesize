@@ -10,15 +10,17 @@ Cross-platform physical disk space use retrieval for Rust.
 ## Synopsis
 
 ```rust
-pub fn file_real_size<P: AsRef<Path>>(path: P) -> std::io::Result<u64>;
-pub fn file_real_size_fast<P: AsRef<Path>>(path: P, metadata: &Metadata) -> std::io::Result<u64> 
-
 pub trait PathExt {
     fn size_on_disk(&self) -> std::io::Result<u64>;
     fn size_on_disk_fast(&self, metadata: &Metadata) -> std::io::Result<u64>;
 }
-
 impl PathExt for std::path::Path;
+
+pub fn file_real_size<P: AsRef<std::path::Path>>(path: P) -> std::io::Result<u64>;
+pub fn file_real_size_fast<P: AsRef<std::path::Path>>(
+    path: P,
+    metadata: &Metadata
+) -> std::io::Result<u64>;
 ```
 
 ## Description
@@ -42,19 +44,15 @@ use std::path::Path;
 use filesize::PathExt;
 
 let path = Path::new("Cargo.toml");
+let metadata = path.symlink_metadata()?;
 
 let realsize = path.size_on_disk()?;
-
-// Save a stat() on Unix
-let metadata = path.symlink_metadata()?;
 let realsize = path.size_on_disk_fast(&metadata)?;
 
-// Legacy interface
+// Older interface
 use filesize::{file_real_size, file_real_size_fast};
 
 let realsize = file_real_size(path)?;
-
-// Save a stat() on Unix
 let realsize = file_real_size_fast(path, &metadata)?;
 ```
 
