@@ -77,3 +77,5 @@ metadata directly.
 [`std::fs::symlink_metadata()`]: https://doc.rust-lang.org/std/fs/fn.symlink_metadata.html
 [`std::os::unix::fs::MetadataExt`]: https://doc.rust-lang.org/std/os/unix/fs/trait.MetadataExt.html
 [crate]: https://crates.io/crates/filesize
+[docs]: https://docs.rs/filesize
+[ci]: https://github.com/Freaky/rust-filesize/actions?query=workflow%3Abuild
